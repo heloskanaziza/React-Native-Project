@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import { faGraduationCap, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
 const Listdata = () => {
-  const jsonUrl = 'http://192.168.92.227:3000/mahasiswa';
+  const jsonUrl = 'http://10.33.84.217:3000/mahasiswa';
   const [isLoading, setLoading] = useState(true);
   const [dataUser, setDataUser] = useState({});
   const [refresh, setRefresh] = useState(false);
@@ -21,6 +21,18 @@ const Listdata = () => {
       .catch((error) => console.error(error))
       .finally(() => setLoading(false));
   }, []);
+
+  function deleteData(id) {
+    fetch(jsonUrl + '/' + id, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        alert('Data terhapus');
+        refreshPage();
+      })
+  }
 
   return (
     <SafeAreaView>
@@ -53,6 +65,16 @@ const Listdata = () => {
                     </View>
                   </View>
                 </TouchableOpacity>
+
+                <View style={styles.form}>
+                  <Button title="Hapus"
+                    onPress={() => Alert.alert('Hapus data', 'Yakin akan menghapus data ini?', [
+                      { text: 'Tidak', onPress: () => console.log('button tidak') },
+                      { text: 'Ya', onPress: () => deleteData(item.id) },
+                    ])}
+                    color={'red'}
+                  />
+                </View>
 
               </View>
             )}

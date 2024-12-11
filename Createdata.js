@@ -3,7 +3,7 @@ import {useState} from 'react'
 import { SafeAreaView, View, ScrollView, TextInput, Text, Button, StyleSheet } from 'react-native';
 
 const Createdata = () => {
-    const jsonUrl = 'http://192.168.92.227:3000/mahasiswa'; //API yg digunakan emulator untuk akses localhost komputer
+    const jsonUrl = 'http://10.33.84.217:3000/mahasiswa'; //API yg digunakan emulator untuk akses localhost komputer
     const [first_name, setFirstName] = useState('');
     const [last_name, setLastName] = useState('');
     const [kelas, setKelas] = useState('');
@@ -18,7 +18,7 @@ const Createdata = () => {
           kelas: kelas,
           gender: gender,
         };
-        fetch('http://192.168.92.227:3000/mahasiswa', {
+        fetch('http://10.33.84.217:3000/mahasiswa', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -80,6 +80,30 @@ const styles = StyleSheet.create({
       },
       button: {
         marginVertical: 10,
+      },
+      avatar: {
+        borderRadius: 100,
+        width: 80,
+      },
+      cardtitle: {
+        fontSize: 14,
+        fontWeight: 'bold',
+      },
+      card: {
+        flexDirection: 'row',
+        padding: 20,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 1,
+          height: 1,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 1.41,
+        elevation: 2,
+        marginHorizontal: 20,
+        marginVertical: 7
       }
      })
         
