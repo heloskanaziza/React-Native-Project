@@ -2,7 +2,8 @@
 
 ---
 
-**Nada Pradipa** adalah aplikasi yang hadir untuk menerangi perjalanan musikal, dirancang untuk memudahkan pecinta musik di Yogyakarta menemukan informasi tentang konser yang akan datang. Nama "Nada Pradipa" menggabungkan dua unsur, yaitu "Nada" yang mewakili musik dan "Pradipa" yang berarti cahaya, mencerminkan tujuan aplikasi ini untuk memudahkan pengguna untuk menemukan informasi konser, menjelajahi jadwal, dan mengetahui lokasi acara, dan menjadikan setiap momen musik di kota budaya ini lebih berarti dan mudah diakses.
+**Nada Pradipa** adalah aplikasi yang hadir untuk menerangi perjalanan musikal, dirancang untuk memudahkan pecinta musik di Yogyakarta menemukan informasi tentang konser yang akan datang. 
+Nama "Nada Pradipa" menggabungkan dua unsur, yaitu "**Nada**" yang mewakili musik dan "**Pradipa**" yang berarti cahaya, mencerminkan tujuan aplikasi ini untuk memudahkan pengguna untuk menemukan informasi konser, menjelajahi jadwal, mengetahui lokasi acara, dan menjadikan setiap momen musik di kota budaya ini lebih berarti dan mudah diakses.
 
 ---
 
