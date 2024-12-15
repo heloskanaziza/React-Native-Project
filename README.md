@@ -30,22 +30,19 @@
 
 ## Tangkapan Layar Komponen Produk
 
-| Komponen Produk 1         | Komponen Produk 2         | Komponen Produk 3         |
+| Home 1 | Home 2 | Add 1 |
 |---------------------------|---------------------------|---------------------------|
 | ![Gambar 1](assets/images/image1.jpeg) | ![Gambar 2](assets/images/image2.jpeg) | ![Gambar 3](assets/images/image3.jpeg) |
-| Komponen Produk 4         | Komponen Produk 5         | Komponen Produk 6         |
+| Add 2 | List 1 | List 2 |
 | ![Gambar 4](assets/images/image4.jpeg) | ![Gambar 5](assets/images/image5.jpeg) | ![Gambar 6](assets/images/image6.jpeg) |
-| Komponen Produk 7         | Komponen Produk 8         |                           |
-| ![Gambar 7](assets/images/image7.jpeg) | ![Gambar 8](assets/images/image8.jpeg) |                           |
+| Edit | Map 1 | Map 2  |
+| ![Gambar 7](assets/images/image7.jpeg) | ![Gambar 8](assets/images/image8.jpeg) |  ![Gambar 9](assets/images/image9.jpeg) |
 
 ---
 
 ## Demonstrasi
 
-Berikut adalah demonstrasi produk. Klik tautan di bawah untuk menonton:
-[![Demonstrasi Produk](https://img.youtube.com/vi/dZYIRblTQDc/maxresdefault.jpg)](https://youtube.com/shorts/dZYIRblTQDc)
-
-Atau tonton langsung di YouTube melalui link ini:  
+Berikut adalah demonstrasi produk. Klik link di bawah ini untuk menonton:
 [https://youtube.com/shorts/dZYIRblTQDc](https://youtube.com/shorts/dZYIRblTQDc)
 
 ---
