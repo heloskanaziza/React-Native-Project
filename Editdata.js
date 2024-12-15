@@ -1,194 +1,252 @@
-import React, { useEffect, useState } from 'react'
-import { SafeAreaView, View, TextInput, Text, Button, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native-virtualized-view';
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faPenToSquare, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
+import React, { useEffect, useState } from 'react';
+import {
+  SafeAreaView,
+  View,
+  TextInput,
+  Text,
+  Button,
+  StyleSheet,
+  FlatList,
+  TouchableOpacity,
+  ImageBackground,
+} from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
+const Editdata = () => {
+  const jsonUrl = 'http://192.168.1.7:3000/concerts';
 
-const Createdata = () => {
-    // IP emulator untuk mengakses localhost komputer
-    const jsonUrl = 'http://10.33.84.217:3000/mahasiswa';
-    const [first_name, setFirstName] = useState('');
-    const [last_name, setLastName] = useState('');
-    const [kelas, setKelas] = useState('');
-    const [gender, setGender] = useState('');
-    const [email, setEmail] = useState('');
+  // State untuk form dan data
+  const [concert_name, setConcertName] = useState('');
+  const [date, setDate] = useState('');
+  const [location, setLocation] = useState('');
+  const [price, setPrice] = useState('');
+  const [line_up, setLineUp] = useState('');
+  const [web_link, setWebLink] = useState('');
+  const [selectedUser, setSelectedUser] = useState({});
+  const [isLoading, setLoading] = useState(true);
+  const [dataUser, setDataUser] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
-    const submit = () => {
-        const data = {
-            first_name: first_name,
-            last_name: last_name,
-            email: email,
-            kelas: kelas,
-            gender: gender,
-        };
-        //fetch(http://10.0.2.2:3000/mahasiswa/${selectedUser.id}, {
-        fetch(`http://10.33.84.217:3000/mahasiswa/${selectedUser.id}`, {
-            method: 'PATCH',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json);
-                alert('Data tersimpan');
-                setFirstName('');
-                setLastName('');
-                setKelas('');
-                setGender('');
-                setEmail('');
-                refreshPage();
-                FlatList.refresh();
-            })
-    }
+  // Fetch data dari server
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-    const [selectedUser, setSelectedUser] = useState({});
-    const [isLoading, setLoading] = useState(true);
-    const [dataUser, setDataUser] = useState({});
-    const [refresh, setRefresh] = useState(false);
+  const fetchData = () => {
+    setLoading(true); // Tampilkan indikator loading
+    fetch(jsonUrl)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        setDataUser(json);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false)); // Hapus indikator loading
+  };
 
-    useEffect(() => {
-        fetch(jsonUrl)
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json)
-                setDataUser(json)
-            })
-            .catch((error) => console.error(error))
-            .finally(() => setLoading(false));
-    }, []);
+  const refreshPage = () => {
+    setRefresh(true); // Tampilkan indikator refresh
+    fetch(jsonUrl)
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        setDataUser(json);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => setRefresh(false)); // Hapus indikator refresh
+  };
 
-    function refreshPage() {
-        fetch(jsonUrl)
-            .then((response) => response.json())
-            .then((json) => {
-                console.log(json)
-                setDataUser(json)
-            })
-            .catch((error) => console.error(error))
-            .finally(() => setLoading(false));
-    }
+  const selectItem = (item) => {
+    setSelectedUser(item); // Simpan data item yang dipilih
+    setConcertName(item.concert_name);
+    setDate(item.date);
+    setLocation(item.location);
+    setPrice(item.price);
+    setLineUp(item.line_up);
+    setWebLink(item.web_link);
+  };
 
-    const selectItem = (item) => {
-        setSelectedUser(item);
-        setFirstName(item.first_name);
-        setLastName(item.last_name);
-        setKelas(item.kelas);
-        setGender(item.gender);
-        setEmail(item.email);
-    }
+  const submit = () => {
+    const data = {
+      concert_name,
+      date,
+      location,
+      price,
+      line_up,
+      web_link,
+    };
 
+    fetch(`${jsonUrl}/${selectedUser.id}`, {
+      method: 'PATCH',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        alert('Data berhasil diperbarui');
+        // Reset form
+        setConcertName('');
+        setDate('');
+        setLocation('');
+        setPrice('');
+        setLineUp('');
+        setWebLink('');
+        // Refresh data
+        refreshPage();
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Gagal memperbarui data.');
+      });
+  };
 
-    return (
-        <SafeAreaView>
-            <View>
-                {isLoading ? (
-                    <View style={{ alignItems: 'center', marginTop: 20 }}>
-                        <Text style={styles.cardtitle}>Loading...</Text>
+  return (
+    <ImageBackground
+      source={require('./assets/images/concert_background.png')}
+      style={styles.background}
+    >
+      <SafeAreaView style={{ flex: 1 }}>
+        <ImageBackground
+          source={require('./assets/images/concert_background.png')}
+          style={styles.background}
+        >
+          <View style={{ flex: 1 }}>
+            {isLoading ? (
+              <View style={{ alignItems: 'center', marginTop: 20 }}>
+                <Text style={styles.cardtitle}>Loading...</Text>
+              </View>
+            ) : (
+              <>
+                {/* Form Edit */}
+                <View style={{ paddingBottom: 16 }}>
+                  <Text style={styles.title}>Edit Concert Data</Text>
+                  <View style={styles.form}>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Concert Name"
+                      value={concert_name}
+                      onChangeText={setConcertName}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Date"
+                      value={date}
+                      onChangeText={setDate}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Location"
+                      value={location}
+                      onChangeText={setLocation}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Price"
+                      value={price}
+                      onChangeText={setPrice}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Line-Up"
+                      value={line_up}
+                      onChangeText={setLineUp}
+                    />
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Web Link (for more info)"
+                      value={web_link}
+                      onChangeText={setWebLink}
+                    />
+                    <View style={styles.buttonContainer}>
+                      <Button title="SAVE CHANGES" color="#FFCC00" onPress={submit} />
                     </View>
-                ) : (
-                    <View>
-                        <ScrollView>
-                            <View>
-                                <Text style={styles.title}>Edit Data Mahasiswa</Text>
-                                <View style={styles.form}>
-                                    <TextInput style={styles.input} placeholder="Nama Depan" value={first_name} onChangeText={(value) => setFirstName(value)} />
-                                    <TextInput style={styles.input} placeholder="Nama Belakang" value={last_name} onChangeText={(value) => setLastName(value)} />
-                                    <TextInput style={styles.input} placeholder="Kelas" value={kelas} onChangeText={(value) => setKelas(value)} />
-                                    <TextInput style={styles.input} placeholder="Jenis Kelamin" value={gender} onChangeText={(value) => setGender(value)} />
-                                    <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={(value) => setEmail(value)} />
-                                    <Button title="Edit" style={styles.button} onPress={submit} />
-                                </View>
-                            </View>
-                            <View style={styles.devider}></View>
-                        </ScrollView>
-                        <FlatList
-                            style={{ marginBottom: 10 }}
-                            data={dataUser}
-                            onRefresh={() => { refreshPage() }}
-                            refreshing={refresh}
-                            keyExtractor={({ id }, index) => id}
-                            renderItem={({ item }) => (
-                                <View>
-                                    <TouchableOpacity onPress={() => selectItem(item)}>
-                                        <View style={styles.card}>
-                                            <View style={styles.avatar}>
-                                                <FontAwesomeIcon icon={faGraduationCap} size={50} />
-                                            </View>
-                                            <View>
-                                                <Text style={styles.cardtitle}>{item.first_name} {item.first_name}</Text>
-                                                <Text>{item.kelas}</Text>
-                                                <Text>{item.gender}</Text>
-                                            </View>
-                                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
-                                                <FontAwesomeIcon icon={faPenToSquare} size={20} />
-                                            </View>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            )}
-                        />
+                  </View>
+                </View>
 
-                    </View>
-                )}
-            </View>
-        </SafeAreaView>
+                {/* List Data */}
+                <FlatList
+                  data={dataUser}
+                  keyExtractor={(item) => String(item.id)}
+                  refreshing={refresh}
+                  onRefresh={refreshPage}
+                  style={{ flex: 1 }}
+                  contentContainerStyle={{ paddingBottom: 16 }}
+                  renderItem={({ item }) => (
+                    <TouchableOpacity onPress={() => selectItem(item)}>
+                      <View style={styles.card}>
+                        <View>
+                          <Text style={[styles.cardtitle, { color: '#6b6969' }]}>
+                            {item.concert_name}
+                          </Text>
+                          <Text style={{ color: '#6b6969' }}>Date: {item.date}</Text>
+                          <Text style={{ color: '#6b6969' }}>Location: {item.location}</Text>
+                          <Text style={{ color: '#6b6969' }}>Price: {item.price}</Text>
+                          <Text style={{ color: '#6b6969' }}>Line-up: {item.line_up}</Text>
+                          <Text style={{ color: '#6b6969' }}>Web Link: {item.web_link}</Text>
+                        </View>
+                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
+                          <FontAwesomeIcon icon={faPenToSquare} size={20} />
+                        </View>
+                      </View>
+                    </TouchableOpacity>
+                  )}
+                />
+              </>
+            )}
+          </View>
+        </ImageBackground>
+      </SafeAreaView>
+    </ImageBackground>
+  );
+};
 
-
-    )
-}
-
-export default Createdata
+export default Editdata;
 
 const styles = StyleSheet.create({
-    title: {
-        paddingVertical: 12,
-        backgroundColor: '#333',
-        color: 'white',
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-    },
-    form: {
-        padding: 10,
-        marginBottom: 20,
-    },
-    input: {
-        borderWidth: 1,
-        borderColor: '#777',
-        borderRadius: 8,
-        padding: 8,
-        width: '100%',
-        marginVertical: 5,
-    },
-    button: {
-        marginVertical: 10,
-    },
-    avatar: {
-        borderRadius: 100,
-        width: 80,
-    },
-    cardtitle: {
-        fontSize: 14,
-        fontWeight: 'bold',
-    },
-    card: {
-        flexDirection: 'row',
-        padding: 20,
-        borderRadius: 10,
-        backgroundColor: 'white',
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 1,
-            height: 1,
-        },
-        shadowOpacity: 0.20,
-        shadowRadius: 1.41,
-        elevation: 2,
-        marginHorizontal: 20,
-        marginVertical: 7
-    },
-})
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
+  title: {
+    paddingVertical: 12,
+    backgroundColor: 'white',
+    color: 'black',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  form: {
+    padding: 16,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#777',
+    borderRadius: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    padding: 10,
+    marginVertical: 8,
+    color: '#000',
+  },
+  buttonContainer: {
+    marginTop: 16,
+  },
+  cardtitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  card: {
+    flexDirection: 'row',
+    borderRadius: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    padding: 15,
+    marginHorizontal: 20,
+    marginVertical: 7,
+    elevation: 3,
+  },
+});

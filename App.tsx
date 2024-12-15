@@ -1,12 +1,5 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
 import React from 'react';
-import type {PropsWithChildren} from 'react';
+import type { PropsWithChildren } from 'react';
 import {
   SafeAreaView,
   ScrollView,
@@ -15,21 +8,20 @@ import {
   Text,
   useColorScheme,
   View,
+  Linking,
 } from 'react-native';
 
 import {
   Colors,
-  DebugInstructions,
   Header,
   LearnMoreLinks,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({children, title}: SectionProps): React.JSX.Element {
+function Section({ children, title }: SectionProps): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -37,7 +29,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
         style={[
           styles.sectionTitle,
           {
-            color: '#966b6b',
+            color: isDarkMode ? Colors.white : Colors.black,
           },
         ]}>
         {title}
@@ -86,7 +78,16 @@ function App(): React.JSX.Element {
             A
           </Section>
           <Section title="Link Media Sosial">
-
+            <Text
+              style={styles.link}
+              onPress={() => Linking.openURL('https://www.linkedin.com/')}>
+              LinkedIn: linkedin.com/in/heloskana
+            </Text>
+            <Text
+              style={styles.link}
+              onPress={() => Linking.openURL('https://twitter.com/')}>
+              Twitter: @heloskana
+            </Text>
           </Section>
           <LearnMoreLinks />
         </View>
@@ -108,6 +109,12 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 18,
     fontWeight: '400',
+  },
+  link: {
+    fontSize: 16,
+    color: '#1B95E0',
+    marginTop: 5,
+    textDecorationLine: 'underline',
   },
   highlight: {
     fontWeight: '700',
