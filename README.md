@@ -47,7 +47,7 @@
 
 ## Demonstrasi
 
-Berikut adalah demonstrasi produk. Klik link di bawah ini untuk menonton:
+Berikut adalah demonstrasi produk. Klik link ini untuk menonton:
 [https://youtube.com/shorts/dZYIRblTQDc](https://youtube.com/shorts/dZYIRblTQDc)
 
 ---
