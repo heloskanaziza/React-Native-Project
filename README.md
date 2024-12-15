@@ -30,15 +30,18 @@
 
 ## Tangkapan Layar Komponen Produk
 
-| Home 1 | Home 2 | Add 1 |
-|---------------------------|---------------------------|---------------------------|
+| Home 1  | Home 2  | Add 1  |
+|---------|---------|--------|
 | ![Gambar 1](assets/images/image1.jpeg) | ![Gambar 2](assets/images/image2.jpeg) | ![Gambar 3](assets/images/image3.jpeg) |
-| Add 2 | List 1 | List 2 |
-|---------------------------|---------------------------|---------------------------|
+
+| Add 2   | List 1  | List 2 |
+|---------|---------|--------|
 | ![Gambar 4](assets/images/image4.jpeg) | ![Gambar 5](assets/images/image5.jpeg) | ![Gambar 6](assets/images/image6.jpeg) |
-| Edit | Map 1 | Map 2  |
-|---------------------------|---------------------------|---------------------------|
-| ![Gambar 7](assets/images/image7.jpeg) | ![Gambar 8](assets/images/image8.jpeg) |  ![Gambar 9](assets/images/image9.jpeg) |
+
+| Edit    | Map 1   | Map 2  |
+|---------|---------|--------|
+| ![Gambar 7](assets/images/image7.jpeg) | ![Gambar 8](assets/images/image8.jpeg) | ![Gambar 9](assets/images/image9.jpeg) |
+
 
 ---
 
